@@ -1,0 +1,44 @@
+syntax="proto3";
+
+package main;
+
+import "validate/validate.proto";
+
+service Lovoo {
+    // Add two numbers.
+    rpc Add(OpRequest) returns (OpResponse);
+    // Substratct two numbers.
+    rpc Sub(OpRequest) returns (OpResponse);
+    // Multiply two numbers.
+    rpc Mult(OpRequest) returns (OpResponse);
+    // Divide two numbers.
+    rpc Div(DivRequest) returns (OpResponse);
+}
+
+message OpRequest{
+    Number a = 1;
+    Number b = 2;
+}
+
+message DivRequest{
+    Number a = 1;
+    NonZeroNumber b = 2;
+}
+
+message OpResponse{
+    Number c = 1;
+}
+
+message Number {
+    oneof n {
+        int32 int = 1;
+        float float = 2;
+    }
+}
+
+message NonZeroNumber {
+    oneof n {
+        int32 int = 1 [(validate.rules).int32 = {not_in:[0]}];
+        float float = 2[(validate.rules).float = {not_in:[0]}];
+    }
+}
