@@ -5,7 +5,7 @@ import (
 	"net"
 	"log"
 	"context"
-	"google.golang.org/grpc"
+	pb "google.golang.org/rmcaxoul/grpc_server/main"
 )
 
 type lovooServer struct {}

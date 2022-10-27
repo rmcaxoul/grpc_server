@@ -1,5 +1,7 @@
 syntax="proto3";
 
+option go_package = "google.golang.org/rmcaxoul/grpc_server/main";
+
 package main;
 
 import "validate/validate.proto";
