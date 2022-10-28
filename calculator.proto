@@ -1,0 +1,34 @@
+syntax="proto3";
+
+package calculator;
+
+import "validate/validate.proto";
+
+service Calculator {
+    // Add two numbers.
+    rpc Add(OpRequest) returns (OpResponse);
+    // Substratct two numbers.
+    rpc Sub(OpRequest) returns (OpResponse);
+    // Multiply two numbers.
+    rpc Mult(OpRequest) returns (OpResponse);
+    // Divide two numbers.
+    rpc Div(DivRequest) returns (DivResponse);
+}
+
+message OpRequest{
+    int32 First = 1;
+    int32 Second = 2;
+}
+
+message DivRequest{
+    int32 First = 1;
+    int32 Second = 2 [(validate.rules).int32 = {not_in:[0]}];
+}
+
+message OpResponse{
+    int32 Result = 1;
+}
+
+message DivResponse{
+    float Result = 1;
+}

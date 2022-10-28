@@ -1,27 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"net"
 	"log"
-	"context"
-	pb "google.golang.org/rmcaxoul/grpc_server/main"
+	"net"
+
+	"github.com/rmcaxoul/grpc_server/calculator"
+	"google.golang.org/grpc"
 )
 
-type lovooServer struct {}
-
-func (s *lovooServer) Add (ctx context.Context, req *OpRequest) (OpResponse, error){
-	return nil, nil
-}
-
-func main(){
-	flag.Parse()
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
+// Starts the server on port 9000 and initializes gRPC
+func main() {
+	lis, err := net.Listen("tcp", ":9000")
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("Could not listen to port 9000: %v", err)
 	}
-	var opts []grpc.ServerOption
-	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterRouteGuideServer(grpcServer, newServer())
-	grpcServer.Serve(lis)
+
+	s := calculator.Server{}
+
+	grpcServer := grpc.NewServer()
+
+	calculator.RegisterCalculatorServer(grpcServer, &s)
+
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve gRPC server port 9000: %s", err)
+	}
 }
