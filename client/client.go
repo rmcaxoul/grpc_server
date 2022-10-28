@@ -99,7 +99,6 @@ func main() {
 	flag.StringVar(&b, "b", "", "an int")
 	flag.StringVar(&method, "method", "", "An operator (+,-,* or /)")
 	flag.Parse()
-	println(method)
 	inta, intb, err := parseInts(a, b)
 	if err != nil {
 		log.Fatalf("error: %s", err)

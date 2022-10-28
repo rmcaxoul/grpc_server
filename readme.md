@@ -38,3 +38,10 @@ max int32   = 2147483647
 min int32   = -2147483648
 ```
 If the limit is reached within an operation, an error will be returned.
+
+### Example
+
+```bash
+go run client/client.go -a=1 -b=3 -method=+
+2022/10/28 03:33:21 1 + 3 = 4
+```

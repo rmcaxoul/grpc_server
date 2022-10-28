@@ -60,7 +60,6 @@ func TestMult_OK(t *testing.T) {
 		First:  12,
 		Second: -25,
 	})
-	println(res.Result)
 	if res.Result != 12*-25 || err != nil {
 		t.Errorf("Mult(12*-25)=%d; want -300", res.Result)
 	}
@@ -82,7 +81,6 @@ func TestDiv_OK(t *testing.T) {
 		First:  12,
 		Second: 7,
 	})
-	println(res.Result)
 	if res.Result != 12/7 || err != nil {
 		t.Errorf("Div(12/7)=%f; want 1.71428571429", res.Result)
 	}
