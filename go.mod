@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.6.13
+	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.5.2
 	golang.org/x/net v0.1.0
 	google.golang.org/grpc v1.50.1

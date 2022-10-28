@@ -2,6 +2,10 @@ package main
 
 import (
 	"testing"
+
+	gomock "github.com/golang/mock/gomock"
+	"github.com/rmcaxoul/grpc_server/calculator"
+	mock_calculator "github.com/rmcaxoul/grpc_server/mocks"
 )
 
 // Parsing with a positive and negative int.
@@ -34,4 +38,22 @@ func TestParseInt_Err_Empty(t *testing.T) {
 	if err == nil {
 		t.Errorf("parsed an empty string to %d", a)
 	}
+}
+
+func TestMakeRequest_OK(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	calcMock := mock_calculator.NewMockCalculatorClient(ctrl)
+
+	req := &calculator.OpRequest{
+		First:  1,
+		Second: 2,
+	}
+
+	resp := &calculator.OpResponse{
+		Result: 3,
+	}
+
+	calcMock.EXPECT().Add(gomock.Any(), gomock.Eq(req)).Return(resp, nil).Times(1)
+
+	makeRequest(calcMock, 1, 2, "+")
 }
